@@ -37,27 +37,29 @@
             {{-- <img class="card-img-top" src="{{ asset("storage/". $post->thumbnail)}}" alt=""> --}}
             {{-- <img class="card-img-top" src="{{ asset($post->takeImage())}}" alt=""> --}}
             @if($post->thumbnail)
-                <img style="height: 320px; object-fit:cover; object-position: center;" class="card-img-top" src="{{ $post->takeImage}}" alt="">
+                <a href="{{ route('posts.show', $post->slug)}}">
+                    <img style="height: 320px; object-fit:cover; object-position: center;" class="card-img-top" src="{{ $post->takeImage}}" alt="">
+                </a>
             @endif
 
 
             <div class="card-body">
-                <div class="card-title">
+                <a href="{{ route('posts.show', $post->slug)}}" class="card-title">
                     <div>{{$post->title}}</div>
+                </a>
                     <div class="text-secondary">Author {{ $post->author->name }}</div>
-                </div>
-                <div class="">{{Str::limit($post->body, 100)}}</div> 
-                <a href=" /posts/{{ $post->slug}}">Read More</a>
+                    <div class="">{{Str::limit($post->body, 100)}}</div> 
+                {{-- <a href=" /posts/{{ $post->slug}}">Read More</a> --}}
             </div>
             
             
-            <div class="card-footer d-flex justify-content-between">      
+            <div class="">      
                 <div class="">Published on {{$post->created_at->format( "d F, Y")}}</div>
                 {{-- <div class="">{{$post->created_at->diffForHumans()}}</div> --}}
                 {{-- @if(auth()->user()->is($post->author)) --}}
-                @can('update', $post) 
+                {{-- @can('update', $post) 
                     <a href="/posts/{{ $post->slug}}/edit" class="btn btn-sm btn-success" >Edit</a>             
-                @endcan
+                @endcan --}}
             </div>              
             {{-- ganti bahasa en ke id di app/config/app.php --}}
         </div>      

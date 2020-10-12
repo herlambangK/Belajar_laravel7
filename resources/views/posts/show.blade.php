@@ -6,27 +6,33 @@
        <h1>
         {{$post->title}}
        </h1>
-              <div class="text-secondary">
+              <div class="text-secondary mb-3">
                      <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name}}</a> &middot; {{$post->created_at->format("d F, Y")}}
                      &middot;
                      @foreach ($post->tags as $tag)
                        <a href="/tags/{{ $tag->slug}}">{{ $tag->name}}</a>
                      @endforeach
+
+                     <div class="text-secondary">Wrote by  {{ $post->author->name}}</div>
               </div>
-       <hr>
+     
        <p>
-        {{$post->body}}
+        {!! nl2br($post->body)!!}
        </p>
        <div>
-             <div class="text-secondary">Wrote by  {{ $post->author->name}}</div>
+         
 
               {{-- @if( auth()->user()->id == $post->user_id) --}}
               {{-- @if( auth()->user()->is($post->author)) --}}
               @can('delete', $post)
-              <!-- Button trigger modal -->
-               <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
-               Delete
-              </button>
+                     <div class="flex mt-3">
+                             <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger  btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            Delete
+                            </button>
+
+                            <a href="/posts/{{ $post->slug}}/edit" class="btn btn-sm btn-success" >Edit</a>             
+                     </div>
      
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
