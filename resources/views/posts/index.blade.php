@@ -31,36 +31,61 @@
         
        
    <div class="row">
-       <div class="col-md-6">
+       <div class="col-md-7">
         @forelse( $posts as $post)
         <div class="card mb-4"> 
             {{-- <img class="card-img-top" src="{{ asset("storage/". $post->thumbnail)}}" alt=""> --}}
             {{-- <img class="card-img-top" src="{{ asset($post->takeImage())}}" alt=""> --}}
             @if($post->thumbnail)
-                <a href="{{ route('posts.show', $post->slug)}}">
-                    <img style="height: 320px; object-fit:cover; object-position: center;" class="card-img-top" src="{{ $post->takeImage}}" alt="">
-                </a>
+                      <a href="{{ route('posts.show', $post->slug)}}">
+                         <img style="height: 400px; object-fit:cover; object-position: center;" class="card-img-top" src="{{ $post->takeImage}}" alt="">
+                         </a>
             @endif
 
-
             <div class="card-body">
-                <a href="{{ route('posts.show', $post->slug)}}" class="card-title">
-                    <div>{{$post->title}}</div>
-                </a>
-                    <div class="text-secondary">Author {{ $post->author->name }}</div>
-                    <div class="">{{Str::limit($post->body, 100)}}</div> 
-                {{-- <a href=" /posts/{{ $post->slug}}">Read More</a> --}}
+            {{-- <a href="{{ route('posts.show', $post->slug)}}" class="text-secondary">
+                    {{ $post->category->name}} --}}
+                <div>
+                    <a href="{{ route('categories.show', $post->category->slug)}}" class="text-secondary">
+                       <small >  {{ $post->category->name}} - </small>
+                    </a>
+                    @foreach($post->tags as $tag)
+                        <a href="{{ route('tags.show', $tag->slug)}}" class="text-secondary">
+                            <small>  {{ $tag->name}}</small>
+                        </a>
+                    @endforeach
+                </div>
+                    <h5>
+                        <a href="{{ route('posts.show', $post->slug)}}" class="card-title">
+                            <div class="text-dark">{{$post->title}}</div>
+                        </a>
+                    </h5>
+
+                    <div class="text-secondary my-3">{{Str::limit($post->body, 130)}}</div>
+
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div class="media align-items-center">                           
+                        <img width="40" class="rounded-circle mr-3"  src="{{ $post->gravatar() }}" alt="">
+                            <div class="media-body">
+                                    <div>{{ $post->author->name}}</div>                
+                            </div>
+                     </div>
+                    <div class="text-secondary">
+                        <small>
+                            Published on {{$post->created_at->format( "d F, Y")}} </small>
+                    </div>               
+                </div>
             </div>
             
             
-            <div class="">      
-                <div class="">Published on {{$post->created_at->format( "d F, Y")}}</div>
+            {{-- <div class="">       --}}
+                
                 {{-- <div class="">{{$post->created_at->diffForHumans()}}</div> --}}
                 {{-- @if(auth()->user()->is($post->author)) --}}
                 {{-- @can('update', $post) 
                     <a href="/posts/{{ $post->slug}}/edit" class="btn btn-sm btn-success" >Edit</a>             
                 @endcan --}}
-            </div>              
+            {{-- </div>               --}}
             {{-- ganti bahasa en ke id di app/config/app.php --}}
         </div>      
 
@@ -69,18 +94,12 @@
                 <div class="alert alert-warning"> There are no posts.</div>
             </div>  
         @endforelse  
-    
-       </div>
-   </div>
-                   
+                
             </div>
          </div>
-        <div class="d-flex justify-content-center">
-                <div class="">{{$posts->links()}}</div>
-        </div>
-        {{-- @else --}}
-        
-      {{-- @endif --}}
+
+                {{$posts->links()}}
+
 </div>
 
 @stop

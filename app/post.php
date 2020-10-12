@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User;
 class post extends Model
 {
     protected $fillable = ['title', 'slug', 'body','category_id','thumbnail'];
+    protected $with = ['author', 'category','tags'];
     //
     // protected $table = 'post'; digunakan untuk memperkenalkan nama ke db 
     public function getRouteKeyName()
@@ -39,4 +40,9 @@ class post extends Model
     public function author(){
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function gravatar($size =150){
+       
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $this->author->email ) ) ) . "?d=mp&s=" . "&s=" . $size;
+    }
+
 }

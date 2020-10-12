@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', 'HomeController'); 
 Route::get('posts/', 'PostController@index')->name('posts.index');
-
+Route::get('search', 'SearchController@post')->name('search.posts');
 
 Route::prefix('posts')->middleware('auth')->group(function(){
     
@@ -54,10 +54,10 @@ Route::prefix('posts')->middleware('auth')->group(function(){
 Route::get('posts/{post:slug}', 'PostController@show')->name('posts.show');
 
 
-Route::get('categories/{category:slug}', 'CategoryController@show');
+Route::get('categories/{category:slug}', 'CategoryController@show')->name('categories.show');
 
 
- Route::get('tags/{tag:slug}', 'TagController@show');
+ Route::get('tags/{tag:slug}', 'TagController@show')->name('tags.show');
 
 
 

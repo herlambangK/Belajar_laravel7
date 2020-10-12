@@ -11,6 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
 
+        
           <ul class="navbar-nav mr-auto">
               <li class="nav-item">
               <a href="{{ route('posts.index')}}" class="nav-link"> Posts</a>
@@ -18,6 +19,13 @@
           </ul>
 
           <!-- Right Side Of Navbar -->
+          {{-- //SERCING --}}
+
+          <form action="{{route('search.posts')}}" method="get" class="form-inline my-2 my-lg-0">
+            <input name="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
           <ul class="navbar-nav ml-auto">
               <!-- Authentication Links -->
               @guest
@@ -37,6 +45,7 @@
 
                       
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a href="{{ route('posts.create')}}" class="dropdown-item">New Post</a>
                           <a class="dropdown-item" href="{{ route('logout') }}"
                              onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">

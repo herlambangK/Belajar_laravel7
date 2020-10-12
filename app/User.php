@@ -37,6 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+   
     //jika user punya banyak post relasi dengan user
     public function posts(){
         return $this->hasMany(post::class);

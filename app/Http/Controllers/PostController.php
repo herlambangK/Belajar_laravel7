@@ -28,7 +28,8 @@ class PostController extends Controller
         //     abort(404);
         // } 
         // dd($post);   dapat gunakan compact post untuk teks yang sama dengan variable $variable post
-        return view('posts.show', compact('post'));
+        $posts = post::where('category_id', $post->category_id)->latest()->limit(6)->get();
+        return view('posts.show', compact('post','posts'));
     }
 
 
